@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Driver View</title>
+<link
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+	rel="stylesheet" />
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/2.2.1/mdb.min.css"
+	rel="stylesheet" />
+<style type="text/css">
+th[onclick], td[onclick] {
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+	<div class="container-fluid mt-5">
+		<div class="row">
+			<div class="col-7">
+				<form class="input-group" action="/driver/search" method="get">
+					<input class="form-control" placeholder="Enter name" name="key" />
+					<button class="btn btn-outline-primary">Search</button>
+				</form>
+			</div>
+			<div class="col-5">
+				<form action="driver/add" method="POST">
+					<button class="btn btn-primary">Add Driver</button>
+				</form>
+
+			</div>
+		</div>
+		<table class="table table-hover mt-3">
+			<thead class="table-primary">
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Identification</th>
+					<th>Lisense Id</th>
+					<th>Lisense Type</th>
+					<th>Address</th>
+					<th>Dob</th>
+					<th>Experience</th>
+					<th>Position</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="driver: ${drivers}">
+					<th th:text="${driver.id}"
+						th:onclick="|busesDetail('${driver.id}')|"></th>
+					<td th:text="${driver.name}"
+						th:onclick="|busesDetail('${driver.id}')|"></td>
+					<td th:text="${driver.identification}"
+						th:onclick="|busesDetail('${driver.id}')|"></td>
+					<td th:text="${driver.lisenseId}"
+						th:onclick="|busesDetail('${driver.id}')|"></td>
+					<td th:text="${driver.lisenseType}"
+						th:onclick="|busesDetail('${driver.id}')|"></td>
+					<td th:text="${driver.address}"
+						th:onclick="|busesDetail('${driver.id}')|"></td>
+					<td th:text="${driver.dob}"
+						th:onclick="|busesDetail('${driver.id}')|"></td>
+					<td th:text="${driver.experience}"
+						th:onclick="|busesDetail('${driver.id}')|"></td>
+					<td th:text="${driver.isDriver}"
+						th:onclick="|busesDetail('${driver.id}')|"></td>
+					<td>
+						<form th:action="@{/driver/edit/} + ${driver.id}">
+							<button class="btn btn-warning">Edit</button>
+						</form>
+
+						<form th:action="@{/driver/delete/} + ${driver.id}" method="POST">
+							<button class="btn btn-dark">Delete</button>
+						</form>
+					</td>
+				</tr>
+
+
+			</tbody>
+		</table>
+	</div>
+
+	<script type="text/javascript">
+		const busesDetail = (id) => {
+			window.location.href = '/buses/detail-by-driver-id/' + id;
+		}
+		
+	</script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/2.2.1/mdb.min.js"></script>
+</body>
+</html>
